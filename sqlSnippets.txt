@@ -1,0 +1,173 @@
+1. is null, is not null, or, and
+select *
+from emp
+where deptno = 10
+or comm is not null
+or sal <= 2000 and deptno=20
+
+
+2. subquery
+select *
+from (
+select sal as salary, comm as commission
+from emp
+) x
+where salary < 5000
+
+3. concatenation operator : || , +
+select ename ||' WORKS AS A '||job as msg
+from emp
+where deptno=10
+
+4.Conditional opeartor:
+select 
+	case when then
+        else 
+      end as columnName
+from tablename	 
+select ename,sal,
+case when sal <= 2000 then 'UNDERPAID'
+when sal >= 4000 then 'OVERPAID'
+else 'OK'
+end as status
+from emp
+
+5.limiting the number:
+select * from customers 
+where rownum<=3
+
+
+6.Inserting into multiple rows into table
+INSERT ALL
+INTO CUSTOMERS (customer_id , first_name , last_name , age , country ) values ( 1, 'John', 'Doe', 23, 'USA')
+INTO CUSTOMERS (customer_id , first_name , last_name , age , country ) values(2,'Robert','Luna',22,'USA')
+INTO CUSTOMERS (customer_id , first_name , last_name , age , country ) values (3,'David','Robinson',22,'UK')
+INTO CUSTOMERS (customer_id , first_name , last_name , age , country ) values (4,'John','Reinhardt',25,'UK')
+select 1 from dual
+
+7.Random rows:
+select * from 
+( select * 
+	from customers 
+	order by dbms_random.value())
+	where rownum<=3
+
+
+8.Transforming Nulls into Real Values
+select coalesce(columnNmae, 0) from customers
+
+9.patterns in sql:
+select ename, job
+from emp
+where deptno in (10,20)
+and (ename like '%I%' or job like '%ER')
+
+10.sorting by multiple field:
+select empno,deptno,sal,ename,job
+from emp
+order by deptno, sal des
+
+11.sorting nullable column so that null rows are at the end
+select * from tablename order by 3 asc
+
+12.NON-NULL COMM SORTED ASCENDING, ALL NULLS LAST 
+select ename,sal,comm
+from (
+select ename,sal,comm,
+case when comm is null then 0 else 1 end as is_null
+from emp
+) x
+order by is_null desc,comm
+
+13.
+NON-NULL COMM SORTED DESCENDING, ALL NULLS LAST
+select ename,sal,comm
+from (
+select ename,sal,comm,
+case when comm is null then 0 else 1 end as is_null
+from emp
+) x
+order by is_null desc,comm desc
+
+14.
+NON-NULL COMM SORTED DESCENDING, ALL NULLS FIRST
+select ename,sal,comm
+from (
+select ename,sal,comm,
+case when comm is null then 0 else 1 end as is_null
+from emp
+) x
+order by is_null,comm desc
+
+15.Sorting on a Data-Dependent Key using condition:
+You want to sort based on some conditional logic. For example, if JOB is SALES‐
+MAN, you want to sort on COMM; otherwise, you want to sort by SAL. You want to
+return the following result set:
+
+select ename,sal,job,comm
+from emp
+ order by case when job = 'SALESMAN' then comm else sal end
+
+16.select from multiple table and presenting as one table
+select first_name, customer_id as customer_id_and_Order_id 
+from Customers 
+union all 
+select item, order_id from orders
+
+17.to remove common data between two different columns in two different tables:
+select order_id 
+from orders 
+minus 
+select shipping_id 
+from shippings
+
+18.Restrict input in column using check()
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int CHECK (Age>=18)
+);
+
+19.
+set operation is used in case of removalof data since, it is easy
+
+20.
+Return all rows from one table along with rows from another that may or may not
+have a match on the common column. Then, keep only those rows with no match.
+select d.* 
+from dept d left outer join emp e
+on d.deptno=e.deptno
+where e.deptno is null
+
+21.
+select distinct columnNmae 
+from tablename
+
+Gives out distinct rows and sorts the column in ascending order
+
+
+22.
+select columnNames...,
+from tablenames...
+where data between '01-JAN-27' and '27-OCT_27'
+
+
+23.Retrieval using IN
+select columnNames...
+from tableNames...
+where columnValues in ('value1','value2',...,'valueN')
+
+
+24.
+retrieval using like
+select columnNames...
+from tableNames...
+where columnValues like 'ca%'
+% is indication for 0 or more characters
+
+
+
+extra lines 
+632
+689

@@ -1,0 +1,25 @@
+create table customers (customer_id int, first_name varchar(100), last_name varchar(100), age int, country varchar(100));
+create table orders (order_id integer, item varchar(100), amount integer, customer_id integer );
+create table shippings ( shipping_id integer, status varchar(100), customer integer);
+
+INSERT ALL
+INTO CUSTOMERS (customer_id , first_name , last_name , age , country ) values ( 1, 'John', 'Doe', 23, 'USA')
+INTO CUSTOMERS (customer_id , first_name , last_name , age , country ) values(2,'Robert','Luna',22,'USA')
+INTO CUSTOMERS (customer_id , first_name , last_name , age , country ) values (3,'David','Robinson',22,'UK')
+INTO CUSTOMERS (customer_id , first_name , last_name , age , country ) values (4,'John','Reinhardt',25,'UK')
+select 1 from dual;
+
+insert all
+into orders values (2,'Mouse',300,4)
+into orders values (3,'Monitor',12000,3)
+into orders values (4,'Keyboard',400,1)
+into orders values (5,'Mousepad',250,2)
+select 1 from dual;
+
+insert all
+into shippings values (1,'Pending',2)
+into shippings values (2,'Pending',4)
+into shippings values (3,'Delivered',3)
+into shippings values (4,'Pending',5)
+into shippings values (5,'Delivered',1)
+select 1 from dual;

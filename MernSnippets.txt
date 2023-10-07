@@ -1,0 +1,202 @@
+html:
+
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width , initial-scale=1.0">
+	<title><title>
+</head>
+<body>
+	<input name="" value="" id="" >
+</body>
+
+
+<header>
+<nav>
+</header>
+<main>
+<section>	<aside>
+<article>
+<address></>
+</>
+<article></>
+...
+</section>
+<footer>
+</footer>
+</main>
+
+
+radio:
+
+<input type="radio" name="fruits"  value="mango"> mango
+<input type="radio" name="fruits" value="mango"> papaya
+
+checkbox:
+
+<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"><label for="vehicle1"> I have a bike</label><br>
+<input type="checkbox" id="vehicle2" name="vehicle2" value="Car"><label for="vehicle2"> I have a car</label><br>
+<input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"><label for="vehicle3"> I have a boat</label><br>
+
+radio:
+
+<input type="radio" name="fruits" value="mango" > mango
+<input type="radio" name="fruits" value="papaya" > papaya
+
+range:
+
+<input type="range" min="9" max="10">
+
+timeFrame:
+
+<input type="week/month/data/time" >
+
+
+
+
+
+
+css:
+
+<link href="index.css" rel="stylesheet" > 
+
+<a href="" target="_blank" rel="noopener noreferrer" > </a>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+
+selector{
+transition: property timeIn s; 
+}
+
+selector:pseudoselecter{
+property:different value;
+}
+
+
+animation:
+
+selector{
+animation: name duration timing-function delay iteration-count(1 to infinte) direction
+linear, ease-in, ease-out, ease-in-out
+ndtdid
+}
+
+animation-direction: norma;|reverse|alternate|alternate-reverse
+
+
+types of selector:
+
+1.descendaant : selector1 selector2
+
+finds all the children of selecor1 which matches selector1
+
+2.direct child : selector1 > selector2
+
+finds all the direct child
+
+3.adjacent: selector1 + selector2
+
+finds element right next to it
+
+4.sibling : selector1 ~ selector2
+
+finds all the siblings after itself
+
+pseudo classes: 
+
+for links: hover, active, visited, link
+
+for input: focus, enabled, required, checked
+
+:nth-child(n), :nth-of-type(n), :empty()
+
+
+selector:pseudo class
+
+
+media :
+
+@media (max-width:760px){
+	selector{
+	
+	}
+}
+
+widths: 320px, 480px, 768px, 1024px, 1200px
+
+
+
+psudo elements:
+
+::first-line, , ::before, ::after, ::selection, 
+
+
+hue is rygbp, from angle 0 to 360
+saturation is just 100%: all of the hue color, 0%:none of the color
+light is value which makes our code white or blacker
+
+
+hue:  red yellow green blue pink 
+
+
+flexbox:
+
+
+parent:
+
+display:flex;
+flex-direction:column
+flex:wrap				//if children does not have any space left on 1 row , some children can move to next line
+
+children:
+
+flex-shrink:1;			//allows children to make line break if ran out of space
+flex-grow:0;			//allows childrens to grow if there is  a room left
+flex:1				// flex-shrink:1,flex-grow:1,flex-basis:0
+
+
+css grid:
+
+container:
+
+display:grid
+grid-template-columns: repeat(noOfCol,width)
+grid-templae-rows: minmax(minheight,auto)
+grid-gap:height 							//grid-row-gap=grid-column-gap
+gridbar-template-areas:"header header" "sidebar content" "sidebar content"
+justify-container:;
+align-items:
+
+
+child:
+
+childSelector{
+grid-area:header
+}
+
+childSelector{
+grid-area:sidebar
+}
+
+childSelector{
+grid-area:content
+}
+
+
+or 
+
+
+children{
+grid-column: start/end 
+grid-row: start/end 
+
+or
+
+grid-column: span 2
+grid-row: span 2 
+}
+
+
+
+
+

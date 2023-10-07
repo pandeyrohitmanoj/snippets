@@ -1,0 +1,105 @@
+
+1. Insert:
+
+// Insert one document
+db.collection.insertOne({ name: "John", age: 30, email: "john@example.com" })
+
+// Insert multiple documents
+db.collection.insertMany([
+   { name: "Jane", age: 25, email: "jane@example.com" },
+   { name: "Bob", age: 35, email: "bob@example.com" }
+])
+
+
+2. Read :
+
+// Find all documents in a collection
+db.collection.find()
+
+// Find documents that match a query
+db.collection.find({ name: "John" })
+
+// Limit the number of documents returned
+db.collection.find().limit(10)
+
+// Sort the documents by a field
+db.collection.find().sort({ age: 1 })
+
+// Project specific fields
+db.collection.find({}, { name: 1, email: 1 })
+
+
+3. Update:
+
+// Update one document
+db.collection.updateOne({ name: "John" }, { $set: { age: 32 } })
+
+// Update multiple documents
+db.collection.updateMany({ name: "John" }, { $set: { age: 32 } })
+
+
+4. Delete:
+
+// Delete one document
+db.collection.deleteOne({ name: "John" })
+
+// Delete multiple documents
+db.collection.deleteMany({ name: "John" })
+
+
+
+
+2.1 find:
+
+db.collection.find({ age: { $eq: 30 } })
+
+
+db.collection.find({ age: { $gt: 30 } })
+db.collection.find({ age: { $lt: 30 } })
+
+
+db.collection.find({ name: { $in: ["John", "Jane"] } })
+
+
+db.collection.find({ name: { $regex: /^J/ } })
+
+
+db.collection.find({ $and: [{ age: { $gt: 30 } }, { name: "John" }] })
+db.collection.find({ $or: [{ age: { $gt: 30 } }, { name: "John" }] })
+
+
+
+3.1: Update:
+
+
+db.collection.updateOne({ name: "John" }, { $set: { age: 32 } })
+
+
+db.collection.updateOne({ name: "John" }, { $set: { age: 32 } })
+
+
+db.collection.updateOne({ name: "John" }, { $push: { hobbies: "reading" } })
+
+Unique push:
+db.collection.updateOne({ name: "John" }, { $addToSet: { hobbies: "reading" } })
+
+
+$pull : This operator removes a value from an array field in a document.
+
+db.collection.updateOne({ name: "John" }, { $pull: { hobbies: "reading" } })
+
+
+$rename : This operator renames a field in a document
+
+db.collection.updateOne({ name: "John" }, { $rename: { email: "new_email" } })
+
+
+$unset: This operator removes a field from a document.
+
+db.collection.updateOne({ name: "John" }, { $unset: { email: "" } })
+
+
+If you want to add the new field to multiple documents in the collection, you can use the updateMany() method instead:
+
+
+db.collection.updateMany({ age: { $gt: 30 } }, { $set: { new_field: "new_value" } })

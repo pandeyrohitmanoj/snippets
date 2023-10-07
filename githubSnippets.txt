@@ -1,0 +1,54 @@
+github snippets:
+
+command to get list of all file and folder name, to get all hidden folder use -a at the end:
+
+ls
+
+ls -a
+
+commands to check or change configuration :
+
+git config <option>
+
+git config --global user.name userName
+
+commad to make directory:
+
+mkdir directoryName
+
+
+working directory -> staging area -> commit history -> git repository
+
+Repository has stagin area and commit history
+
+
+
+git commit -m "message"
+
+commit is take snapshot of staging area 
+
+git reset filename
+
+branch is pointers to commits
+commits are snapshots of all the files in repository
+
+git cat -p 
+
+
+git branch branchName
+
+head points at branch
+
+
+git checkout branchname		to switch branch
+
+merge:
+
+
+git merge branchName
+
+git branch -d branchName
+
+create if not existing branch command:
+
+git checkout -b branchName

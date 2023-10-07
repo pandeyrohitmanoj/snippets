@@ -1,0 +1,382 @@
+
+(char) (int) (float) for datatype conversion
+
+
+recurion:
+its accomplished using base case and terminating case
+
+int recursive(value){
+if(terminating condition){
+//this code will end the recursive call
+}
+else if(base case){
+//this code will make the recursive call
+and bring value to threshold by increment or dcrement in value
+}
+
+Classes:
+class IntCell{
+public:
+	IntCell(){   //no parameter constructor
+		storedValue=0;
+	}
+	IntCell(int initialValue){    /single parameter constructor
+		storedValue=initialValue;
+	}
+	int read(){
+	return storedValue;
+	}
+	void write(int x){
+		storedValue=x;
+	}
+private:
+	int storedValue;
+}
+
+explicit:
+use explicit to avoid behind the scene type conversions
+class IntCell{
+public:
+	explicit IntCell(boolean initialValue){ 
+		storedValue=initialValue;
+	}
+	explicit IntCell(int initialValue){
+		storedValue=initialValue;
+	}
+	int read(){
+	return storedValue;
+	}
+	void write(int x){
+		storedValue=x;
+	}
+private:
+	int storedValue;
+}
+
+
+4.Input and outpupt:
+
+std::cout << printing data to the console
+std::cin >> reading data from the terminal
+std::cerr << Printing error to console
+std::clog << printing log messages to the console
+std::getline(std::cin,full_name)
+
+5.Datatypes:
+char grade="A"
+string phrase="Giraffe Academy"
+int age=50;
+float gpa= 2.345f  //precison:7
+#include <iomanip>
+long double planck's constant =6.6634 x10-34L  //precison:15
+bool isMale=false
+
+
+6.String:
+
+
+#include <bits/stdc++.h>
+#include <string>
+#include <cstring>
+
+string str = "value";
+
+Operations:
+
+str.length();	
+str.find(value)   							//find a element in cpp
+
+char arr[str.length()];
+strcpy(arr,str.c_str());						//Create array of character out of string
+
+
+str.substr(position,length)
+
+str.erase(position, length)						//if length is missing it will erase the entire substring after position,
+
+str.insert(position,string)						//Insert at nth positon
+
+
+int st=str.find(search);						//if string is present it will give value between index 0 to n-1 or else value is -1
+
+		
+cout << str.replace(st,search.length(),"some"); 		//To find a string and areplace it with another	
+
+str.replace(position, length,string)
+
+string to vector:
+vector<char> vector(str.begin(),str.end())
+stoi(string)
+string (number, charachter)
+
+
+#include <bits/stdc++.h>
+str.append( position, value)
+sort(str.begin() , str.end());
+sort(str.begin() , str.end(),greater<int>());
+
+
+
+transform(s.begin(),s.end(),s.begin(),::toupper);
+
+transform(start,end,start of uppercase, ::toupper);
+
+.compare() : To compare two strings 
+string1.compare(string2) values can be 0 or other than zero
+
+.empty() : results if its empty
+
+.erase(position,length): reomves characers from string
+s1.erase(3,2) removes 2 characters from 3rd position 
+
+.find(value): find value in string 	//if value isn't present value == string::npos
+
+.inesert(position, value):
+inserts at position the given value
+s.insert(3,"vlaue")
+
+s1.size(): number of characters in string
+s1.length() same as above
+
+.substr(position, length):
+create subtrings
+
+
+stoi(string) : string to integer
+
+to_string(string) :integer to string
+
+sort(str.begin() , str.end());
+
+transform(s.begin(),s.end(),s.begin(),::toupper);
+
+reverse(str.beign(),str.end())
+
+
+
+8.string manipuation:
+
+a.If character is alphanumeric:
+isalnum(value) value will be either 0(when its not an alphanumeric character) or non-zero
+  
+b.If character is alpphabetic:
+isalpha(value) value = 0 is not alpha
+
+c.If character is lowercase or uppercase:
+islower(value) , isupper(value)
+
+d.If character is digit:
+isdigit(value)
+
+e.change to lowercase or uppercase:
+toupper(value) , tolower(value)
+
+look at cstring
+
+getline(cin,variableName)
+
+
+
+9.
+lambda function :
+
+[capture list] (parameter) -> return type{
+//function body
+}
+
+examples:
+
+[](double a, double b)->double{
+cout << a+b
+}(12.1,5.7)
+
+auto result = [](double a, double b){
+return a+b
+}(12.1,5.7)
+
+
+
+Vector:
+
+vectors (dynamic array):
+
+vectors can be iterated using [index]:
+
+for(int i=0;i<vector.size();i++){
+	cout << vector[i];
+}
+
+vector<datatype> variableName (size of array, values of array...) ;
+variableName.push_back()
+variableName.pop_back();
+variableName.k( arr.begin() + position, value)
+variableName.sort()
+variableName.reverse()
+it = std::find (vec.begin(), vec.end(), ser);
+swap(v1,v2)
+sort(v.begin().v.end())   				//sort
+sort(arr.begin(),arr.end(), greater<int>());	//sort descendingly
+vector.erase(position iterator)
+vector.clear()
+
+set to vector:
+vector<int> variableName (set.begin(),set.end())
+
+
+std::set<char> s = { 'a', 'b', 'c', 'd', 'e' };
+ 
+std::vector<char> v;
+
+v.assign(s.begin(), s.end());
+
+min_elements(vbegin(),v.end())
+
+max_elements(v.begin(),v.end())
+
+
+pair (dynamic dictionary):
+
+pair <datatype1, datatype2> variableName ;
+
+p.first = value
+p.second = value
+
+
+to make a vector of pairs:
+
+vector < pair < int, int> > varibaleName;
+v.push_back(make_pair(arr[i],i))
+
+
+
+
+unordered_map:
+
+
+unordered_map<string,int> variable_name;
+variable_name[key]=value
+travesal : 
+		for(auto x : variable_name){
+			cout << x.first <<x.second
+		}
+
+
+cout << "After erasing by Iterator : \n";
+    variable_name.erase(um.begin());
+
+cout << "After erasing by Key : \n";
+    variable_name.erase(4189);
+
+cout << "After erasing by Range : \n";
+    auto it = um.begin();
+    it++; // Returns iterator pointing to second element
+    um.erase(it, um.end());
+
+
+stack:
+#include <iostream>
+#include <stack>
+int main(){
+stack<int> stack;
+stack.push(value)		
+stack.pop() 
+stack.top()		//pops values at end of the list
+stack.empty()
+}
+
+
+
+queue:
+#include <iostream>
+#include <queue>
+int main(){
+queue<int> queue;
+queue.push(value)  	// pushes value at the end of the list
+queue.pop() 		//pops values at front of the list
+queue.front()
+queue.back()
+queue.empty()
+}
+
+
+
+map:
+#include<map>
+map<dataType,dataType> variableName
+map.insert(pair)
+map<int,int>::iterator it;
+for(it=first.begin();it!=first.end();++it){
+    cout << it->first << it->second << endl;
+}
+
+TO find element :
+
+VariableName.find(value)
+
+To clear:
+variableName.clear()
+
+To erase:
+gquiz2.erase(gquiz2.begin(), gquiz2.find(3))
+
+
+
+
+sets in cpp:
+
+set is good for ordered nonrepeating stream of values.
+difficult to find position of element in set
+
+#include <set>
+set<int> first;
+first.insert(value);
+auto it = first.find(value) // greater than zero will exist
+first
+first.erase(value)
+for(auto x : first){
+cout << x ;
+}
+
+
+
+unordered_set():
+
+methods are all the above 
+
+
+
+
+
+Arrays:
+
+string str[]={"Rajat","Raji","Ravi","Raman"};
+int length=sizeof(str)/sizeof(string);
+sort(str,str+length);
+
+
+
+
+For sorting an array, You will pass first elements address by just writing there name and last letter by finding there length
+
+For sorting a string you will pass its first letter's postition using .begin() and last position using .end()
+
+
+
+
+1. The & (bitwise AND) in C or C++ takes two numbers as operands and does AND on every bit of two numbers. The result of AND is 1 only if both bits are 1. 
+
+ 
+2. The | (bitwise OR) in C or C++ takes two numbers as operands and does OR on every bit of two numbers. The result of OR is 1 if any of the two bits is 1. 
+
+
+3. The ^ (bitwise XOR) in C or C++ takes two numbers as operands and does XOR on every bit of two numbers. The result of XOR is 1 if the two bits are different. 
+
+
+4. The << (left shift) in C or C++ takes two numbers, left shifts the bits of the first operand, the second operand decides the number of places to shift. 
+
+
+5. The >> (right shift) in C or C++ takes two numbers, right shifts the bits of the first operand, the second operand decides the number of places to shift. 
+
+
+6. The ~ (bitwise NOT) in C or C++ takes one number and inverts all bits of it.
+

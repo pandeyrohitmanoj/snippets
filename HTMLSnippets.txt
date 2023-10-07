@@ -1,0 +1,159 @@
+<body>
+
+<meta charset="UTF-8">
+  <meta name="description" content="Free Web tutorials">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="John Doe">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<form>
+
+<table>
+
+
+<picture>
+  <source media="(min-width:650px)" srcset="img_pink_flowers.jpg">
+  <source media="(min-width:465px)" srcset="img_white_flower.jpg">
+  <img src="img_orange_flowers.jpg" alt="Flowers" style="width:auto;">
+</picture>
+
+<img src="link" alt="text of alternate text">
+
+<audio src="link to audio" controls("play or pause") loop(repeat on its on) autoplay muted>Your browser does not support image tag </audio>
+
+
+<video src="video link" controls width="300" height="100"
+poster="img link">Your browser does not support video tag</video>
+
+<video width="320" height="240" controls>
+  <source src="forrest_gump.mp4" type="video/mp4">
+  <source src="forrest_gump.ogg" type="video/ogg">
+  <track src="fgsubtitles_en.vtt" kind="subtitles" srclang="en" label="English">
+  <track src="fgsubtitles_no.vtt" kind="subtitles" srclang="no" label="Norwegian">
+</video>
+
+<div>
+
+<span>
+
+<input>
+
+<h1 to h6>
+
+<b>
+
+<i>
+
+<a href="" target="__blank"></a>
+
+<a href="linke to go to" target="__blank" rel="noopener noreferrer"> link Name </a>
+target="__blank || __self || __parent || __top"
+
+<ol type="1">
+type= 1 || i || I || a || A
+
+<li></li>
+<li></li>
+<li></li>
+
+</ol>
+
+<ul>	
+<li></li>
+<li></li>
+</ul>
+
+<header>
+	<nav>
+	<section>
+		<article>		<aside>
+		<article>
+	<address>
+	<footer>
+
+
+Sectioning element	Description
+
+main			Defines the main content of a document.
+
+section		Represents a group of related content.
+
+article		Defines an individual self-contained content.
+
+header		Defines a header for the document or a section.
+
+footer		Defines a footer for the document or a section.
+
+nav			Defines navigation links
+
+aside			Defines content apart from the page content.
+
+address		Defines contact information for an article or web page.
+
+h1,h2,h3,h4,h5,h6	Defines heading
+
+
+HTML Character Entities
+Character		Description			Entity Name	Entity Number
+<space>	 	Non-breaking space	&nbsp;	&#160;
+<	 		Less than			&It;		&#60;
+>	 		Greater than		&gt;		&#62;
+&			Ampersand			&amp;		&#38;
+©			Copyright			&copy;	&#169;
+TM			Trademark			&trade;	&#153;
+®
+
+Registered Trademark	&reg;	&#174;
+
+
+<form 
+name="Name of the form" 
+action="to specify the server-side programe that will be executed when the form is submitted" 
+method="to specify the HTTP request method that will be used to submit the form data to the server-side program">
+
+
+
+</form>
+
+
+
+<form class="forms">
+            <table>
+                <tr class="form-group">
+                    <td><label for="">Name : </label></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr class="form-group">
+                    <td><label for="">Administrator : </label></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr class="form-group">
+                    <td><label for="">Phone : </label></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr class="form-group">
+                    <td><label>Date of Birth : </label></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr class="form-group" >
+                    <td><label>State:</label></td>
+                    <td>
+                        <select name="" id="" class="states" style="width: 170px;">
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chattisgarh">Chattisgarh</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="" selected>--</option>
+                        </select></td>                    
+                </tr>
+                <tr>
+                    <td><label>Comments:</label></td>
+                    <td>
+                        <textarea rows="2"style="max-width:100%"></textarea>
+                    </td>
+                    
+                </tr>
+            </table>
+        </form>
+

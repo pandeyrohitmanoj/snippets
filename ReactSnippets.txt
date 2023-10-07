@@ -1,0 +1,401 @@
+atlantic.net for hosting
+
+
+useState() is used to simulate similar functionality of state in class component, for functional component only
+
+you have to use useState() at the top level scope in your function.
+
+syntax:
+
+const [count, setCount] = useState({field1:value1,field2:value2,...})
+
+setCount((prevCount)=>{ return { ...prevCount, modifiedField : newValue} })
+
+
+
+useEffect():
+
+This is to simulate react component life cycle methods
+
+
+onMount:
+
+useEffect(()=>{
+console.log('onmount')
+},[])
+
+The above code will run only once.
+
+
+useEffect(()=>{
+console.log("This method will run only when the below state variable value will change")
+},[countState])
+
+The varaiable used in above named countState is created using useState and the useEffect body will rerun everytime value of its changes.
+
+
+useEffect(()=>{
+
+element.addEventListener('click',function add{console.log('clicked')})
+
+return ()=>{
+console.log("what you did in the previous ueEffect will be destroyed here")
+element.removeEventListener('click',add)
+
+}
+})
+},[countState])
+
+
+The return in above code is more clean up, this return will be called every time our componnet gets unmounted
+
+
+useMemo:
+
+This hook is to avoid re running of a very slow function if not needed. It checks the input parameter value for the function, i.e. if the value isn't changed the function will provide similar o/p as if it was last time rendered
+
+Its implementation is as below:
+
+import {useMemo} from 'react'
+
+const slowFunctionCall = useMemo(()=>{
+return slowFunction(inputParameter)
+},[inputParameter])
+
+
+THe another use for useMemo is to not check if the content is not changed after re-rendering , we are still referencing the same object
+
+
+
+
+UseRef():
+
+Since our useEffect changes every time its get renders. Hence if we have to show in UI how many times rerendering happened is not possible.
+
+UseRef has a internal object set equal to { current : 0 }
+
+everytime you have to change the value of useRef you should only change this current value
+
+e.g. for the above
+
+const renderCount = useRef(0)
+
+useEffect(()=>{
+    renderCount.current = renderCount.current+1
+  })
+
+
+
+
+useContext() :
+
+
+
+parent component:
+
+import { createContext } from 'react'
+
+export const ThemeContext = createContext()
+
+function App(){
+
+return <ThemeContext.provider value={valueYouWantToPass}>
+
+<ChildComponent> </childComponent>
+
+</ThemeContext.provider>
+
+}
+
+
+
+
+child Component:
+
+import {useContext} from 'react'
+
+import { ThemeContext } from './parent'
+
+export default function Child(){
+
+const darkTheme = useCOntext(ThemeContext)
+
+//now you can all the variable you passed on from the parent using darkTheme
+
+}
+
+
+
+
+useReducer:
+
+
+This hook is more concrete version of handling complex state, it gives you set action that you can perform on your state and it will convert your current state into new state.
+
+import {useReducer} from 'react'
+
+const Actions = {
+INCREMNET :'increment',
+DECREMNET : 'decrement'
+}
+
+
+function reducer(state,action){
+  switch(action.type){
+    case 'increment':
+      return {count:state.count +1}
+    case 'decrement':
+      return {count:state.count -1}
+    default :
+      return state
+  }
+}
+
+
+export default function App() {
+  const [state,dispatch]= useReducer(reducer,{count:0})
+  function increment(){
+    dispatch({type:Actions.INCREMENT})
+  }
+  function decrement(){
+    dispatch({type:Actions.DECREMENT})
+  }
+  return (
+    <div>
+      <button onClick={increment} > + </button>
+      <span>{state.count}</span>
+      <button onClick={decrement} > - </button>
+    </div>
+  )
+}
+
+
+
+
+
+useCallback():
+
+
+useCallback is used to avoid rerunning of functions that doesn't require to rerun. It returns a function thats why the name useCallback
+
+
+
+const getItems = useCallback(()=>{
+return [number1,number1+1,number1+2]
+},[number1])
+
+
+The useCallback Hook is useful when passing callbacks to optimized child components.
+It works similarly to the useMemo Hook, but for callback functions
+
+
+
+
+
+useState:
+
+We have already used this Hook. It returns a stateful value (state) and a setter function
+(setState) in order to update the value.
+The useState Hook is used to deal with state in React. We can use it as follows:
+
+import { useState } from 'react'
+const [ state, setState ] = useState(initialState)
+
+The useState Hook replaces this.state and this.setState().
+
+
+
+useEffect
+
+This Hook works similarly to adding a function on
+componentDidMount and componentDidUpdate. Furthermore, the Effect Hook allows for
+returning a cleanup function from it, which works similarly to adding a function to
+componentWillUnmount.
+The useEffect Hook is used to deal with effectful code, such as timers, subscriptions,
+requests, and so on. We can use it as follows:
+
+import { useEffect } from 'react'
+useEffect(didUpdate)
+
+The useEffect Hook replaces the componentDidMount, componentDidUpdate, and
+componentWillUnmount methods.
+
+
+
+useContext
+This Hook accepts a context object and returns the current context value.
+The useContext Hook is used to deal with context in React. We can use it as follows:
+
+import { useContext } from 'react'
+const value = useContext(MyContext)
+
+The useContext Hook replaces context consumers.
+
+
+
+Additional Hooks
+Additional Hooks are either more generic variants of basic Hooks or are needed for certain
+edge cases. The additional Hooks we are going to look at are as follows:
+
+useRef
+useReducer
+useMemo
+useCallback
+useLayoutEffect
+useDebugValue
+Let's dive deeper into these additional Hooks in the following sections.
+
+
+useRef
+
+This Hook returns a mutable ref object, where the .current property is initialized to the
+passed argument (initialValue). We can use it as follows:
+
+import { useRef } from 'react'
+const refContainer = useRef(initialValue)
+The useRef Hook is used to deal with references to elements and components in React. We
+can set a reference by passing the ref prop to an element or a component, as follows:
+<ComponentName ref={refContainer} />
+
+
+
+useReducer
+
+This Hook is an alternative to useState, and works similarly to the Redux library. We can
+use it as follows:
+
+import { useReducer } from 'react'
+const [ state, dispatch ] = useReducer(reducer, initialArg, init)
+The useReducer Hook is used to deal with complex state logic.
+
+
+useMemo
+
+Memoization is an optimization technique where the result of a function call is cached, and
+is then returned when the same input occurs again. The useMemo Hook allows us to
+compute a value and memoize it. We can use it as follows:
+
+import { useMemo } from 'react'
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])
+The useMemo Hook is useful for optimization when we want to avoid re-executing
+expensive operations.
+
+
+useCallback
+This Hook allows us to pass an inline callback function, and an array of dependencies, and
+will return a memoized version of the callback function. We can use it as follows:
+
+import { useCallback } from 'react'
+const memoizedCallback = useCallback(
+ () => {
+ doSomething(a, b)
+ },
+ [a, b]
+)
+
+The useCallback Hook is useful when passing callbacks to optimized child components.
+It works similarly to the useMemo Hook, but for callback functions.
+
+
+useLayoutEffect
+This Hook is identical to useEffect, but it only fires after all Document Object Model
+(DOM) mutations. We can use it as follows:
+
+import { useLayoutEffect } from 'react'
+useLayoutEffect(didUpdate)
+
+The useLayoutEffect Hook can be used to read information from the DOM.
+Use the useEffect Hook when possible, because useLayoutEffect will
+block visual updates and slow down your application.
+Finally, we are going to take a look at the last Hook provided by React at the time of
+writing.
+
+
+useDebugValue
+
+This Hook can be used to display a label in React DevTools when creating custom Hooks.
+We can use it as follows:
+
+import { useDebugValue } from 'react'
+useDebugValue(value)
+
+Make sure to use this Hook in custom Hooks to display the current state of your Hooks, as
+it will make it easier to debug them.
+
+
+Community Hooks
+
+In addition to all the Hooks that React provides, there are already plenty of libraries that
+have been published by the community. These libraries also provide Hooks. The Hooks we
+are going to look into are as follows:
+
+useInput
+useResource
+useDimensions
+Navigation Hooks
+
+
+Life cycle Hooks
+Timer Hooks
+Let's see an overview of what these Hooks are in the following sections.
+
+
+useInput
+
+This Hook is used to easily implement input handling, and to synchronize the state of an
+input field with a variable. It can be used as follows:
+
+import { useInput } from 'react-hookedup'
+function App () {
+ const { value, onChange } = useInput('')
+ return <input value={value} onChange={onChange} />
+}
+As we can see, Hooks greatly simplify dealing with input fields in React.
+
+
+
+useResource
+
+This Hook can be used to implement asynchronous data loading via requests in our
+application. We can use it as follows:
+
+import { useRequest } from 'react-request-hook'
+const [profile, getProfile] = useResource(id => ({
+ url: `/user/${id}`,
+ method: 'GET'
+})
+As we can see, using a special Hook for dealing with fetching data is quite simple.
+
+
+Navigation Hooks
+
+These Hooks are part of the Navi library, and are used to implement routing via Hooks in
+React. The Navi library provides many more routing-related Hooks. We are going to learn
+about routing via Hooks, in depth, later on in the book. We can use them as follows:
+
+import { useCurrentRoute, useNavigation } from 'react-navi'
+const { views, url, data, status } = useCurrentRoute()
+const { navigate } = useNavigation()
+
+
+As we can see, Hooks make routing much easier to deal with.
+
+
+
+Life cycle Hooks
+
+The react-hookedup library provides various Hooks, including all life cycle listeners for
+React.
+Please note that it is not recommended to think in terms of a component
+life cycle when developing with Hooks. These Hooks just provide a quick
+way to refactor existing components to Hooks. However, when
+developing new components, it is recommended that you think about
+data flow and dependencies, rather than life cycles.
+Here, we list two of them, but the library actually provides many more Hooks, which we
+will learn about later on. We can use the Hooks provided by react-hookedup as follows:
+
+
+import { useOnMount, useOnUnmount } from 'react-hookedup'
+useOnMount(() => { ... })
+useOnUnmount(() => { ... })
+As we can see, Hooks can directly replace life cycle methods in class components

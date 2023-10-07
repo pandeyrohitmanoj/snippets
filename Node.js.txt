@@ -1,0 +1,175 @@
+Node.js:
+
+It envolves capturing an event and then processing the callback function.
+
+
+htttp.request(options, callbackfunction(res){
+	res.on('data',(chunk)=>{})
+	res.on('end',(code)=>{
+		console.log(code)
+	})
+})
+
+
+browser(calls) 	=> 	DNS server(Domain name server)(sends ip address) 	=> 	browser(gets the ip and then communicates) 	=>	http server 
+facebook.com		searches the domain facebook.com					it talks with ip provided by DNS				gets back all file
+
+
+
+fs.readFile(path,encoding,callback function)
+e.g.
+fs.readFile('path','utf-8',(err,files)=>{
+	if(err) throw err
+	console.log(files)
+})
+
+fs.writeFile(path, content, {flag:'+a'}(err,files)=>{})
+
+
+
+server.on('request',(req,res)=>{
+    res.writeHead(200,{'Content-Type':'text/plain'})
+    if(req.url=='/freinds'){
+        res.write('This are your friends page')
+    }else if(req.url=='/enemy'){
+        res.write('This is you prime nemesis')
+    }else{
+        res.write('you are at default try some other things for more dynamic response')
+    }
+    res.end()
+})
+
+server.listen(PORT,()=>{
+    console.log('port started')
+})
+
+POST request:
+
+fetch('http://localhost:3000/freinds',{ method:"POST",body:JSON.stringify({id:2,name:'Rohit'})})
+
+response.send(anything you wnat to send eg.html, text,json)
+
+res.status(404).json({error:"error you like"})
+
+saving something under develpomnet dependencies :  npm install nodemon --save-dev
+
+const express = require('express')
+const PORT = 3000
+app.get('/',(req,res)=>{
+	res.send('Something')
+})
+
+post data in the express are accepted in body of the page, we can access using req.body.property in our post request, also we have to use middleware express.json()
+
+app.use(express.json)
+
+app.post('/page',(req,res)=>{
+if(!req.body.property){
+res.status(400).json(error:"client side error")
+}
+console.log(req.body)
+})
+
+
+
+MiddleWare: 
+Helps to understand request and response.
+
+ 
+To send a file:
+
+res.sendFile(path)
+
+
+Main Script:
+
+"scripts": {
+    "install-server": "npm install --prefix server",
+    "install-client": "npm install --prefix client",
+    "install": "npm run install-server && npm run install-client",
+    "server": "npm run watch --prefix server",
+    "build": "npm run build --prefix client",
+    "client": "npm start --prefix client",
+    "deploy": "npm run build --prefix client && npm start --prefix server",
+    "deploy-cluster": "npm run build --prefix client && npm run cluster --prefix server",
+    "watch": "npm run server & npm run client",
+    "test": "npm run test --prefix server && npm run test --prefix client"
+  },
+
+
+
+cors:
+
+npm i cors
+
+app.use(cors({
+origin:'link to app'
+})
+
+
+
+multiple cors:
+
+const whitelist = [names of web]
+app.use(
+	cors({
+		origin: function(origin,callback){
+			if(whitelist.indexOf(origin) !==-1 ){
+				callback(null,true)
+			}else{
+				callback(new Error("error"))
+			}
+		}
+	})
+	)
+
+
+Logging using morgan:
+
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+
+app.use(morgan('combined', { stream: accessLogStream }))
+
+
+
+
+To get all the website linked to our host and navigate to front page use this:
+
+app.get('/*',(req,res)=>{
+res.sendFile(path.join(..., index.html ))
+})
+
+
+
+
+pm2 is to make use of all cpus so that our application can take advantage of parallel programing:
+
+
+npm i pm2 --prefix server
+
+server:
+
+"cluster":"pm2 server.js -i max"
+
+
+
+
+mongoose:
+
+
+mongoose.connection.once('open',()=>{
+	console.log('mongodb connection is ready')
+})
+
+mongoose.connection.on('error',()=>{
+	console.log('Connection could not be established')
+})
+
+async startServer(){
+	await mongoose.connect(MONGO_URL,()=>{
+		useNewUrlParser:true,
+	})
+}
+
+
+

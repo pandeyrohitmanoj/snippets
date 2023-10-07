@@ -1,0 +1,462 @@
+Nodejs:
+
+Node js is javascript runtime environment build
+on chrome v8 javascript engine
+we dont need any software to be installed to run
+javascript
+chrome->inbuilt engine(v8 engine)->read you javascript
+ and convert into machine code
+
+client side langauge->
+Html/css/javascript ->php,java,python
+Ryan Dahl->2009,idea use javascript for backend also
+written in c++ embedded this v8 engine and created environment
+where you run your javascript on server side also
+node.exe later called nodejs
+
+javascript fronend to backend applications
+MERN->Mongodb Express React Node
+MEAN->Mongodb Express Angular Node
+
+Frontend   			backend(server)               		Database
+React/angular         	Node/Express(framework based) 		Mongodb/Mysql
+
+Nodejs->langauge -no
+framework->no
+It is run environment where you run javascript on server side to create scalable application
+
+chrome(v8 engine)
+firefox(spidermonkey)
+safari(nitro)
+-----------------------------------
+What is node(server side run time environment)
+using chrome v8 engine
+
+var va="Tania"
+convert code to machine 01001001010
+single codebase
+single threaded use event loop for concurrent requests
+why we are using node
+pros i/o,data streaming/chatting
+cons->cpu intensive task
+non blocking in nature
+scalable
+asynchronous
+
+
+Core modules:
+you will find in every language ,basic features already
+like fs,database connectivity ,api call
+
+global ->no need to any import like console
+
+non global->fs module,need to import it first to use
+
+
+external 
+npm->node package manager
+npm respository give plenty pakages available,can install on demand from there
+
+npm install packagename
+
+
+npm install colors
+or
+npm i colors
+
+package.json:contains the details of project its name,version,keywords,description,commands/custom
+commands,dependencies,dev dependencies
+
+generate package.json your way:
+npm init
+
+package.json will get generated
+
+
+---------------------
+npm install colors
+npm install moongoose
+
+
+After installing any package you will see following changes in your application
+node_modules will get added to project,package.json and package.lock.json
+
+node_mouldes folder->actual packages installed there from npm repositry have size in mb's if more packages added
+
+
+In package.json you see , all packages you installed added in dependencies section
+See chnages in package.json:
+
+"dependencies": {
+    "colors": "^1.4.0"
+  }
+----------
+
+In package json create custom commands
+ "scripts": {
+    "demostart":"node demo.js",
+    "start":"node index.js",
+    "hello":"node first.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+
+
+To run custom command:
+npm run start or npm start
+npm run hello
+npm run demostart
+
+
+----------------
+node demo.js
+
+npm run demostart
+----------------------------
+Modularity concept in code want to use functions created in a file to another file:
+
+Calculator.js
+
+exports.add=(a,b)=>{
+    return a+b
+}
+exports.sub=(a,b)=>{
+    return a-b
+}
+exports.mul=(a,b)=>{
+    return a*b
+}
+
+
+use functions in another file 
+index.js:
+ const calc=require("./Calculator")
+ console.log(calc.add(23,45))
+ console.log(calc.sub(123,45))
+ console.log(calc.mul(12,12))
+
+-------------------------------------
+another way of writing same thing
+Calculator.js
+
+
+const add=(a,b)=>{
+    return a+b
+}
+const sub=(a,b)=>{
+    return a-b
+}
+const mul=(a,b)=>{
+    return a*b
+}
+
+module.exports={add,sub,mul}
+
+
+use functions in another file 
+index.js:
+
+const {add,sub,mul}=require("./Calculator") //another way of accessing by desctructuring data
+console.log(add(23,45))
+console.log(sub(123,45))
+console.log(mul(23,45))
+----------------------------------------------
+
+
+Destructing concept:
+let person={
+    firstname:"rohit",
+    lastname:"Thakur",
+    city:"Chandigarh"
+}
+console.log(person.firstname)
+console.log(person.lastname)
+console.log(person.city)
+let {firstname,lastname,city}=person
+
+console.log(firstname)
+
+----------------------------------------------------
+filehandling:
+//synchronous methods
+const fs=require("fs");
+//file not exists->creating a new file
+//file exists->overwrite the existing
+fs.writeFileSync("test.txt","Twinkle twinkle little star ")
+fs.appendFileSync("test.txt","How I wonder what you are")
+//Buffer is data type in nodejs to raw buffer data
+// const data=fs.readFileSync("test.txt")
+// console.log(data.toString())
+
+const data=fs.readFileSync("test.txt","utf-8")
+console.log(data)
+
+
+
+
+filesync.js
+const fs=require("fs") //non global modules
+fs.writeFile("file1.txt","Welcome all",(err)=>{
+    if(err)
+    {
+        console.log(err)
+    }
+    else
+    {
+        console.log("file is written")
+    }
+})
+fs.appendFile("file1.txt","This nodejs day2 sesssion",(err)=>{
+    console.log("file append one")
+})
+fs.readFile("file1.txt","utf-8",(err,data)=>{
+    console.log(data)
+})
+console.log("another code")
+--------------------------------------
+remodifiying existing demo to use it in oredred way(synchrous way)->need callback or promises/async await
+using callback to make it ordered:
+file_async.js
+
+//callback hell,nested,promises/async await
+
+const fs=require("fs") //non global modules
+fs.writeFile("file1.txt","Welcome all",(err)=>{
+        console.log("file is written")
+        fs.appendFile("file1.txt","This nodejs day2 sesssion",(err)=>{
+            console.log("file append one")
+            fs.readFile("file1.txt","utf-8",(err,data)=>{
+                console.log(data)
+            })
+        })
+})
+console.log("another code")
+--------------------------------------------------------
+remodifying existing demo by promisify from util package:converting functions to return promises:
+promisifydemo.js
+const fs=require("fs")
+const {promisify}=require("util")
+
+const writeFileprom=promisify(fs.writeFile) //return promise//resolved/pending/rejected
+const appendFileprom=promisify(fs.appendFile) 
+const readFileprom=promisify(fs.readFile) 
+
+// then->success/catch->rejected    async await->try catch
+const fulllogic=async()=>
+{
+    try{
+    const res=await writeFileprom("file2.txt","Welcome all") //promise   
+    const res1=await appendFileprom("file2.txt","some content in existing file")
+    const data =await readFileprom("file2.txt","utf-8");
+    console.log(data)
+    }
+    catch(err)
+    {
+        console.log(err)
+    }
+}
+fulllogic();
+console.log("another code")
+-----------------------------------------------------------------------
+httpserver.js
+
+create server in nodejs:
+//creating a server in node
+const http=require("http")
+var server=http.createServer((req,res)=>{
+    //get data
+    res.write("Hello world I have created a server")
+    res.end();
+})
+server.listen(3000,()=>{
+    console.log("My server is running on port 3000")
+});
+
+
+--------------------------------------------------
+API->application Programming Interface
+client              server(nodejs)
+application
+users
+
+website->form submit->post---------------node server(response)
+	request( types:get/post/delete/put)
+
+http->protocol
+
+
+www.google.com->request->google server
+education->submitting form->
+
+Express is a framework built on nodejs
+php->laravel
+javascript->angular
+java-hibernate/spring
+
+
+
+
+as middlewares/routing features in express
+node->large code to accomplish
+
+
+routing:for requests we need a endpoints
+configuring routes
+get/post/delete/put
+
+
+npm i nodemon->to restart the server automatically after changes
+
+Can use postman or thunderclient to test API
+Route parameters:are useful for capturing the values indicated at certain positions in url.These are defined as named url
+segments
+
+http://localhost:3001/user/rohit
+
+->can access by req.params.name
+
+
+Middlewares:
+functions which are used along with routes to help you access
+the request and response
+//you want modify the request,response middleware
+
+why?  modify the request/response
+sometimes in application we have to a check is autheticated
+or not/age to access/country is ban 
+
+why cannot write code directing the routes
+50 routes,write the same code in 50 places
+create a middleware once apply on those/all routes
+
+We can have any numbers of middleware in an application what matters is the calling sequence and next() must to proceed to next route/middleware
+
+Express routing implementation:
+app.js
+//http:localhost:3002/contact
+const express=require("express")
+const app=express();
+app.get("/about",(req,res)=>{   
+    res.send("<h1>this about us route</h1>")
+})
+
+app.get("/contact",(req,res)=>{
+    res.send("contact us page modified")
+});
+app.get("/users",(req,res)=>{
+
+});
+// app.get("/user/",(req,res)=>{
+//     console.log("without parameter") //object
+// });
+app.get("/user/:name",(req,res)=>{
+    console.log(req.params) //object
+    res.send("user name is "+req.params.name)
+});
+//hello,hallo/heeeeeeeeeeeelo/yolo
+app.get("/[a-z]*lo",(req,res)=>{
+    res.send("hello called")
+});
+app.post("/register",(request,resp)=>{
+    resp.send("post request for submitting data")
+})
+//invalid get,post,delete
+app.all("*",(req,res)=>{
+    res.send("Invalid route ! Hey what experting dude");
+})
+app.listen(3002)
+console.log("Server is started on port 3002")
+
+//experitemet two routes with same endpoint-> /contact->
+
+--------------------------------------------------
+Shift the handler functions in
+controllers/handlers.js
+exports.about=(req,res)=>{   
+    res.send("<h1>this about us route</h1>")
+}
+exports.contactus=(req,res)=>{
+    res.send("contact us page modified")
+}
+exports.contactus=(req,res)=>{
+    res.send("contact us page modified")
+}
+exports.users=(req,res)=>{
+    res.send([{name:"rohit",email:"rohit01@gmail.com",age:18},
+    {name:"ritesh",email:"ritesh@gmail.com",age:23}])
+}
+
+-------------------------------------------
+Modify app.js
+const express=require("express")
+const handlers=require("./controllers/handlers")
+const app=express();
+
+app.get("/about",handlers.about)
+
+app.get("/contact",handlers.contactus);
+app.get("/users",handlers.users);
+// app.get("/user/",(req,res)=>{
+//     console.log("without parameter") //object
+// });
+app.get("/user/:name",(req,res)=>{
+    console.log(req.params) //object
+    res.send("user name is "+req.params.name)
+});
+//hello,hallo/heeeeeeeeeeeelo/yolo
+app.get("/[a-z]*lo",(req,res)=>{
+    res.send("hello called")
+});
+app.post("/register",(request,resp)=>{
+    resp.send("post request for submitting data")
+})
+//invalid get,post,delete
+app.all("*",(req,res)=>{
+    res.send("Invalid route ! Hey what experting dude");
+})
+app.listen(302)
+console.log("Server is started on port 3002")
+
+
+---------------------------------------------
+
+
+
+const express = require('express');
+const app = express();
+const path = require('path');
+app.get('/', (req, res) => {
+    console.log("request for index.html file");
+    res.sendFile(path.join(__dirname + '/views/index.html'));
+})
+app.get('/saveUser', (req, res) => {
+    res.json({ username: req.query.username, password: req.query.password });
+});
+app.get('/home', (req, res) => {
+    res.set('Content-Type', 'text/plain');
+    res.send('Welcome');
+});
+app.get('/register', (req, res) => {
+    console.log('request for register.html file');
+    res.sendFile(path.join(__dirname + '/views/register.html'));
+});
+app.get('/about', (req, res) => {
+    console.log('Request for about us page');
+    res.send('About Us page');
+});
+console.log('Server Started at port 3000!');
+app.listen(3000);
+
+
+
+
+
+On Day 5, we have covered the below topics:
+•	Implemented validations on API,error handling and request logging
+•	Session Management(Session and Cookies)
+•	Security,Logging(winston)
+•	Debugging and Securing application using Helmet middleware
+•	API documentation using swagger
+•	Self-study topic – Go through   Lex course ,exercises and quiz
+•	Download Techdesk case study  and notes API Demo and run by npm install  and explore and test all routes with thunderclient/postman
+
+Attached Download link for demos  Link will be applicable till eod   nodejs 

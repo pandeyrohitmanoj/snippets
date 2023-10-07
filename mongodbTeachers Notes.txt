@@ -1,0 +1,110 @@
+MongoDB Components
+    Data is stored in Database. Database has different collections(table). Collection has group of documents(rows)
+    Document   --->    {"name":"Prakahar","age":15}  
+    Collection --->    [{"name":"Prbha","age":15},{"name":"Sagar","age":45},{"name":"Ria","age":11}] group of related documents
+    Database   ---> group of different collections, data is stored in database
+    db---> AmazeDatabase
+    collection---> product, employee....
+    product: [{document1},{document2},{document3}]
+    document:{
+        "Pid":1001,
+        "Pname":"iphone5",
+        "category":{"main":"electronics","sub":"mobile"}
+        "color":["red","black","blue"],
+        "cost":[{RAM:"4GB","price":100000},{"RAM":"8GB","price":102000}]
+     }
+
+
+
+MongoDB Setup
+    1. Dowload MongoDB (zip) of around 4.2 version, from MongoDB's official website
+        https://www.mongodb.com/download-center/community?jmp=docs
+    2. Extract it inside a folder in d drive, like d:/mongodb
+    3. create folder d:/data/db
+    4. Stardt Server - Copy the path where bin folder is, then navigate to it in command prompt---> then type mongod
+    5. Start Client - Copy the path where bin folder is, then navigate to it in command prompt---> then type mongo
+    6. Can write queries in client
+
+
+
+Basic Database Commands
+    db 
+    use db_name
+    show dbs
+    db.dropDatabase()
+    db.createCollection("employee");
+    show collections
+    db.demo.drop()
+
+
+
+Create Operations
+    db.createCollection("employee");
+    db.employee.insertOne({})       ---> It only takes document    {}
+           .insertMany([{},{},{}]) ---> It only takes array  []
+           .insert({})      ----> if object is passed, it behaves as insertOne
+           .insert([{},{}])    ----> if array is passed, it behaves as insertMany          
+_id---> system generated unique Document id/ primary key
+    12 byte hexadecimal value
+    1-4 Currnet TimeStamp
+    5-7 Machine Id
+    8-9 Mongo Server Process Id
+    10-12 Incremental value
+
+
+
+
+Read Operations
+    db.collection_name.find({condition},{projection}).pretty()
+    db.collection_name.findOne({condition},{projection}).pretty()
+    let myquery1 = db.collection_name.find({condition},{projection}) ----> multiple documents are expected --> returns array/empty array
+if(myquery1.length!=0){}
+    let myquery2 = db.collection_name.findOne({condition},{projection}) ----> single document is expected  --> returns object/null
+if(myquery2 != null){}
+from Leena Sharma (internal) (internal) to everyone:    1:07 PM
+trainee ---> 
+db.trainee.insertMany(
+         [{id:1001,name:{fname:"sam",lname:"Joseph"},stream:"UI",courses:["html","js","css"],stipend:15000,trainer:"Rahul"}, 
+          {id:1002,name:{fname:"john",lname:"smith"},stream:"Java",courses:["java fundamentals","spring"],stipend:10000}, 
+          {id:1003,name:{fname:"mary",lname:"brown"},stream:"UI",courses:["react","js","css"],stipend:20000},
+          {id:1004,name:{fname:"charles",lname:"wilson"},stream:"UI",courses:["angular","jquery"],stipend:12000,trainer:"Priya"},
+          {id:1005,name:{fname:"Mary",lname:"davies"},stream:"UI",courses:["mongodb","node","angular"],stipend:8000},
+          {id:1006,name:{fname:"maria",lname:"davies"},stream:"SAP",courses:["abap","s4hana"],stipend:28000},
+              {id:1006,name:{fname:"Cherry",lname:"smith"},stream:"SAP",courses:["abap","erp"],stipend:28000}
+         ]
+)
+
+
+Differnet condition Operators
+1. Relational(comparison)
+    .find({ <field>: { $operator: <value> } },{})
+    {id:{$eq:1001}}
+    1. $ne
+        .find({pname:{$ne:"apple"}},{Projecton field})
+    2. $eq
+    3. $lt/$lte
+    4. $gt/$gte
+    5. $in/$nin it takes an array.(works with array too)
+        .find({department:{$in:["IVS","CCD"]}})
+        .find({color:{$in:["red","blue"]}})        (works with array too)color is an array
+    6. $regex
+        .find({empname:{$regex:"^J",$options:"i"}})
+        .find({empname:{$in:[/^A/i,/E+/i]}})
+
+
+2. logical
+    .find( { $operator: [ { <expression1> }, { <expression2> }, ...  { <expressionN> } ] },  {_id:0} )
+    1. $and
+        .find({$and:[{condition1},{conditon2}]},{projection field})
+    2. $or
+    3. $nor
+    { field: { $not: { <operator-expression> } } }
+    1. $not ---------------> ($not needs regexp or document only)
+        .find({field: {$not:{$regex:"J+"}}})
+3. Element Query
+    1. $type
+        .find({field:{$type:"number"}})
+            1-double  2-string   3-object   4-array   7-objectid   8-bool    9-date    10-null    11-regex    16-int(32bit integer)
+    2. $exists
+        .find({department:{$exists:1}}) 0/1/true/false
+
